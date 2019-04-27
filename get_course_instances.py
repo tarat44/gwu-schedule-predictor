@@ -1,31 +1,33 @@
 import lxml.html
 import requests
 
+from utils import translate_term_to_numerical
 
 class Course:
 
-    def __init__(self, title, semester, professor, status): 
+    def __init__(self, title, semester, professor, crn, status): 
         """Instantiate class with information related to
            first uncovered course offering"""
         self.semesters = [semester]
         self.professors = [professor]
         self.title = title
         self.statuses = [status]
-        self.instances = [(semester, professor, status)]
+        self.instances = {crn: (semester, professor, status)}
 
-    def add_instance_of_course(self, semester, professor, status):
+    def add_instance_of_course(self, semester, professor, crn, status):
         """add an offering with related info in the form of a tuple
            to list of previous offering"""
         self.semesters.append(semester)
         self.professors.append(professor)
         self.statuses.append(status)
-        self.instances.append((semester, professor, status))
+        self.instances[crn] = (semester, professor, status)
 
 
 class CollectCourseData:
 
     def __init__(self):
         self.course_dict = {}
+        self.terms = []
 
     def call_url_and_get_html_object(self, url):
         resp = requests.get(url)
@@ -45,16 +47,17 @@ class CollectCourseData:
             title = str(fields[4].text).strip()
             professor = str(fields[6].text).strip()
             status = str(fields[0].text)
+            crn = str(fields[1].text)
 
             # Add course offering data to dictionary of course classes
             if course_number not in self.course_dict.keys():
             # If course doesn't already exist in dictionary keys, instantiate class of it
                 self.course_dict[course_number] = Course(
                     title=title, semester=semester,
-                    professor=professor, status=status)
+                    professor=professor, crn=crn, status=status)
             else:
                 self.course_dict[course_number].add_instance_of_course(
-                    semester, professor, status)
+                    semester, professor, crn, status)
 
     def get_urls_from_term_strings(self, terms, subject):
         """Inputs are a list of term html objects and a subject (string),
@@ -62,28 +65,21 @@ class CollectCourseData:
            in a given subject for each term and the term (string)"""
         urls = []
         for term in terms:
-            term = str(term.text).lower().strip()
-            term_split = term.split(" ")
-            if term_split[0] == "fall":
-                term_num = "03"
-            elif term_split[0] == "summer":
-                term_num= "02"
-            elif term_split[0] == "spring":
-                term_num = "01"
-            else:
-                raise Exception("Isssue parsing urls")
-            urls.append((f"https://my.gwu.edu/mod/pws/print.cfm?campId=1&termId={term_split[1]}{term_num}&subjId={subject}", term))
+            num_term = translate_term_to_numerical(term)
+            urls.append((f"https://my.gwu.edu/mod/pws/print.cfm?campId=1&termId={num_term}&subjId={subject}", term))
+            self.terms.append(int(num_term))
         return urls
 
     def get_data_urls_and_terms(self, subject):
         """Return list of urls to obtain data from available previous semesers"""
         print("Finding terms with course information available")
         html = self.call_url_and_get_html_object("https://my.gwu.edu/mod/pws/") # Call home page url
-        terms = html.findall(".//div[@class='tableHeaderFont'].//b") # Obtain list of available terms
-        return self.get_urls_from_term_strings(terms, subject)
+        term_elements = html.findall(".//div[@class='tableHeaderFont'].//b") # Obtain list of available terms
+        terms = [term.text.lower().strip() for term in term_elements]
+        return self.get_urls_from_term_strings(terms, subject), terms
 
     def collect_course_data(self, subject):
-        urls = self.get_data_urls_and_terms(subject)
+        urls, terms = self.get_data_urls_and_terms(subject)
         for url, semester in urls:
             self.get_semester_course_data(url, semester)
-        return self.course_dict
+        return self.course_dict, self.terms

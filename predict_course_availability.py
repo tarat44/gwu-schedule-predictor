@@ -1,7 +1,7 @@
 import argparse
 
 from get_course_instances import CollectCourseData
-
+from predict import Predictor
 
 def parse_args():
     """Obtain subject and course number arguments from user and parse data"""
@@ -17,12 +17,15 @@ def parse_args():
 def main():
     args = parse_args()
     subject = args.subject.upper()
-    course_dict = CollectCourseData().collect_course_data(subject)
+    course_dict, terms = CollectCourseData().collect_course_data(subject)
     coursenum = args.coursenum
     try:
         print(course_dict[coursenum].instances)
     except KeyError:
         print(f"The course {subject} {coursenum} has not been offered in the last two years")
+    predictor = Predictor(course_dict[coursenum], terms)
+    predictor.predict()
+    print(predictor.score)
 
 if __name__=="__main__":
         main()
