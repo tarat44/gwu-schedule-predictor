@@ -45,7 +45,7 @@ class Predictor:
             self.score = self.score + number_professors
 
     def factor_in_semester_offered(self):
-        if self.is_seasonal_course() and self.is_seasonal_course().split(" ")[0].lower() != self.semester.lower():
+        if self.semester.lower() not in str(self.course.semesters):
             self.score = self.score - 20
 
     def create_percentage_from_score(self):
