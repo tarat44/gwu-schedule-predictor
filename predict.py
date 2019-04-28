@@ -22,7 +22,7 @@ class Predictor:
             if self.course.instances[crn][2].lower() == "open":
                 weight = 2
             elif self.course.instances[crn][2].lower() == "cancelled":
-                weight = -1
+                weight = -.5
             elif self.course.instances[crn][2].lower() == "closed" or self.course.instances[crn][2].lower() == "waitlist":
                 weight = 3
             if self.within_last_year(self.course.instances[crn]):
@@ -39,11 +39,10 @@ class Predictor:
                 return True
 
     def factor_in_multiple_professors(self):
-        prev_profs = [self.course.instances[list(self.course.instances.keys())[0]][1]]
-        for crn in self.course.instances.keys():
-            if self.course.instances[crn][1] not in prev_profs and self.course.instances[crn][1].lower() != "none":
-                self.score = self.score + 1
-                prev_profs.append(self.course.instances[crn][1])
+        professors = [professor for professor in self.course.professors if professor.lower() != "none"]
+        number_professors = len(set(professors))
+        if number_professors > 1:
+            self.score = self.score + number_professors
 
     def factor_in_semester_offered(self):
         if self.is_seasonal_course() and self.is_seasonal_course().split(" ")[0].lower() != self.semester.lower():
