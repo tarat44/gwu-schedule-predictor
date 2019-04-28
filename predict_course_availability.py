@@ -10,6 +10,8 @@ def parse_args():
                         help='The abbreviated subject of the course, ex: csci, bisc, chem')
     parser.add_argument('--coursenum', type=str, dest='coursenum',
                         help='Number of the course, ex: 1011, 1112')
+    parser.add_argument('--semester', type=str, dest='semester',
+                        help='Semester you would like to take the course, ex: fall, spring')
     args = parser.parse_args()
     return args
 
@@ -23,9 +25,9 @@ def main():
         print(course_dict[coursenum].instances)
     except KeyError:
         print(f"The course {subject} {coursenum} has not been offered in the last two years")
-    predictor = Predictor(course_dict[coursenum], terms)
+    predictor = Predictor(course_dict[coursenum], terms, args.semester)
     predictor.predict()
-    print(predictor.score)
+    print(f"{predictor.score} %")
 
 if __name__=="__main__":
         main()
