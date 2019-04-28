@@ -20,12 +20,13 @@ class Predictor:
             if self.course.instances[crn][2].lower() == "open":
                 self.score = self.score + 4
             elif self.course.instances[crn][2].lower() == "cancelled":
-                self.score = self.score - 6
+                self.score = self.score - 5
             elif self.course.instances[crn][2].lower() == "closed" or self.course.instances[crn][2].lower() == "waitlist":
                 self.score = self.score + 5
 
     def is_seasonal_course(self):
-        if len(set(self.course.semesters)) == 1:
+        seasons = [semester.split(" ")[0] for semester in self.course.semesters]
+        if len(set(seasons)) == 1:
             return self.course.semesters[0]
 
     def get_latest_season_term(self, season):
@@ -53,11 +54,11 @@ class Predictor:
             prev_profs.append(self.course.instances[crn][1])
 
     def factor_in_semester_offered(self):
-        if self.is_seasonal_course() and self.is_seasonal_course().lower() != self.semester.lower():
+        if self.is_seasonal_course() and self.is_seasonal_course().split(" ")[0].lower() != self.semester.lower():
             self.score = self.score - 18
 
     def create_percentage_from_score(self):
-        self.score = self.score * 4
+        self.score = self.score * 7
         if self.score >= 100:
             self.score = 99
         if self.score <= 0:
