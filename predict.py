@@ -29,11 +29,6 @@ class Predictor:
                 weight = weight * 2
             self.score = self.score + weight
 
-    def is_seasonal_course(self):
-        seasons = [semester.split(" ")[0] for semester in self.course.semesters]
-        if len(set(seasons)) == 1:
-            return self.course.semesters[0]
-
     def within_last_year(self, instance):
         if int(translate_term_to_numerical(instance[0])) in self.latest_terms:
                 return True
@@ -46,11 +41,14 @@ class Predictor:
 
     def factor_in_semester_offered(self):
         if self.semester.lower() not in str(self.course.semesters):
-            self.score = self.score - 20
+            if len(set(self.course.semesters)) < len(self.course.semesters):
+                self.score = self.score - 20
+            else:
+                self.score = self.score - 4
 
     def create_percentage_from_score(self):
         self.score = self.score * 10
-        if self.score >= 100:
-            self.score = 99
+        if self.score >= 95:
+            self.score = 95
         if self.score <= 0:
-            self.score = 1
+            self.score = 5
