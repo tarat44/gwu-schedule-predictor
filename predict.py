@@ -20,7 +20,7 @@ class Predictor:
         recent = True
         for crn in self.course.instances.keys():
             if self.course.instances[crn][2].lower() == "open":
-                weight = 2
+                weight = 2.5
             elif self.course.instances[crn][2].lower() == "cancelled":
                 weight = -.5
             elif self.course.instances[crn][2].lower() == "closed" or self.course.instances[crn][2].lower() == "waitlist":

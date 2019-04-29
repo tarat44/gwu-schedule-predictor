@@ -5,8 +5,8 @@ from get_course_instances import Course
 
 
 @pytest.mark.parametrize("status, semester, score", [
-    ("OPEN", "fall 2018", 2), ("CLOSED", "fall 2018", 3), ("CANCELLED", "fall 2018", -.5),
-    ("OPEN", "fall 2019", 4), ("CLOSED", "fall 2019", 6), ("CANCELLED", "fall 2019", -1)])
+    ("OPEN", "fall 2018", 2.5), ("CLOSED", "fall 2018", 3), ("CANCELLED", "fall 2018", -.5),
+    ("OPEN", "fall 2019", 5), ("CLOSED", "fall 2019", 6), ("CANCELLED", "fall 2019", -1)])
 def test_factor_in_enrollment(status, semester, score):
     course_dict = {}
     course_dict["1234"] = Course(title="title", semester=semester, professor="proferssor", crn="123456", status=status)
