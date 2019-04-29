@@ -41,7 +41,8 @@ class Predictor:
 
     def factor_in_semester_offered(self):
         if self.semester.lower() not in str(self.course.semesters):
-            if len(set(self.course.semesters)) < len(self.course.semesters):
+            seasons = [semester.lower().split(" ")[0] for semester in self.course.semesters]
+            if len(set(seasons)) < len(seasons):
                 self.score = self.score - 20
             else:
                 self.score = self.score - 4
