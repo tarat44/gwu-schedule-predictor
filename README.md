@@ -19,6 +19,14 @@ ex:
    Obtaining and indexing information for fall 2018
    Obtaining and indexing information for summer 2018
    Obtaining and indexing information for spring 2018
-   [('fall 2019', 'Smith, J', 'OPEN'), ('fall 2018', 'None', 'CANCELLED'), ('summer 2018', 'Smith, J', 'OPEN')]
-   80 %
+   12345:
+   Semester: fall 2019	professor: Smith, J	status: WAITLIST
+   
+   45678:
+   Semester: spring 2018	professor: Smith, J	status: OPEN
+
+   91011:
+   Semester: summer 2018	professor: None	status: CANCELLED
+   
+   Likelihood of course being offered next sping: 70 %
 ```
