@@ -19,6 +19,10 @@ ex:
    Obtaining and indexing information for fall 2018
    Obtaining and indexing information for summer 2018
    Obtaining and indexing information for spring 2018
+   
+   
+   Previous instances of phys1243:
+   
    12345:
    Semester: fall 2019	professor: Smith, J	status: WAITLIST
    
