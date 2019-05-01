@@ -22,12 +22,18 @@ def main():
     course_dict, terms = CollectCourseData().collect_course_data(subject)
     coursenum = args.coursenum
     try:
-        print(course_dict[coursenum].instances)
+        course = course_dict[coursenum]
+        instances = course.instances
+        crns = instances.keys()
+        print(f"\n\nPrevious instances of {subject}{coursenum}:\n")
+        for crn in crns:
+            print(f"{crn}:\nSemester: {instances[crn][0]}\tprofessor: {instances[crn][1]}\tstatus: {instances[crn][2]}\n")
+        semester = args.semester
+        predictor = Predictor(course_dict[coursenum], terms, semester)
+        predictor.predict()
+        print(f"Likelihood of course being offered next {semester}: {predictor.score} %")
     except KeyError:
         print(f"The course {subject} {coursenum} has not been offered in the last two years")
-    predictor = Predictor(course_dict[coursenum], terms, args.semester)
-    predictor.predict()
-    print(f"{predictor.score} %")
 
 if __name__=="__main__":
         main()

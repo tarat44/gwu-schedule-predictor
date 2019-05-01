@@ -30,16 +30,19 @@ class Predictor:
             self.score = self.score + weight
 
     def within_last_year(self, instance):
+        """Return true if course was offered in the last year"""
         if int(translate_term_to_numerical(instance[0])) in self.latest_terms:
                 return True
 
     def factor_in_multiple_professors(self):
+        """Increase score when course is taught by more than one professor"""
         professors = [professor for professor in self.course.professors if professor.lower() != "none"]
         number_professors = len(set(professors))
         if number_professors > 1:
             self.score = self.score + number_professors
 
     def factor_in_semester_offered(self):
+        """Decrease points if semester was never offered in the desired semester"""
         if self.semester.lower() not in str(self.course.semesters):
             seasons = [semester.lower().split(" ")[0] for semester in self.course.semesters]
             if len(set(seasons)) < len(seasons):
@@ -48,6 +51,7 @@ class Predictor:
                 self.score = self.score - 4
 
     def create_percentage_from_score(self):
+        """Generate percentage from score"""
         self.score = self.score * 10
         if self.score >= 95:
             self.score = 95
