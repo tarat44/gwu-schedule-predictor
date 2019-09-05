@@ -80,7 +80,7 @@ class CollectCourseData:
         return term_urls
 
     def collect_course_data(self, subject):
-        urls, terms = self.get_data_urls_and_terms(subject)
+        urls = self.get_data_urls_and_terms(subject)
         for url, semester in urls:
             self.get_semester_course_data(url, semester)
         return self.course_dict, self.terms
