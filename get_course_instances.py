@@ -36,10 +36,12 @@ class CollectCourseData:
     def get_semester_course_data(self, url, semester):
         """inputs, url (str) to call, semester (str) that url find data for"""
         print(f"Obtaining and indexing information for {semester}")
+        print(url)
         html = self.call_url_and_get_html_object(url)
-        tables = html.findall(".//table[@class='courseListing']")
+        tables = html.findall(".//table[@class='courseListing basicTable courseListingSetWidths']")
 
         # Parse html to get course offering data
+        print(tables)
         for table in tables:
             fields = table.findall(".//td")
             spans = table.findall(".//span")
@@ -69,7 +71,7 @@ class CollectCourseData:
         """Return list of urls to obtain data from available previous semesers"""
         print("Finding terms with course information available")
         html = self.call_url_and_get_html_object("https://my.gwu.edu/mod/pws/") # Call home page url
-        term_elements = html.findall(".//div[@class='tableHeaderFont'].//b") # Obtain list of available terms
+        term_elements = html.findall(".//div[@class='tableHeaderFont']") # Obtain list of available terms
         terms = [term.text.lower().strip() for term in term_elements]
         term_urls = []
         
