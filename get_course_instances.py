@@ -41,7 +41,6 @@ class CollectCourseData:
         tables = html.findall(".//table[@class='courseListing basicTable courseListingSetWidths']")
 
         # Parse html to get course offering data
-        print(tables)
         for table in tables:
             fields = table.findall(".//td")
             spans = table.findall(".//span")
