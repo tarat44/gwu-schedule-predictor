@@ -73,7 +73,6 @@ class CollectCourseData:
         term_elements = html.findall(".//div[@class='tableHeaderFont']") # Obtain list of available terms
         terms = [term.text.lower().strip() for term in term_elements]
         term_urls = []
-        
         for term in terms:
             num_term = translate_term_to_numerical(term)
             self.terms.append(int(num_term))
