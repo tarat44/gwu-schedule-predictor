@@ -21,7 +21,7 @@ ex:
    Obtaining and indexing information for spring 2018
    
    
-   Previous instances of phys1243:
+   Previous instances of phys1234:
    
    12345:
    Semester: fall 2019	professor: Smith, J	status: WAITLIST
