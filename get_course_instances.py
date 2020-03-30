@@ -36,7 +36,6 @@ class CollectCourseData:
     def get_semester_course_data(self, url, semester):
         """inputs, url (str) to call, semester (str) that url find data for"""
         print(f"Obtaining and indexing information for {semester}")
-        print(url)
         html = self.call_url_and_get_html_object(url)
         tables = html.findall(".//table[@class='courseListing basicTable courseListingSetWidths']")
 
