@@ -6,8 +6,7 @@ Provide the python script with the parameters:
     --semester <semester>: semester you are interested in taking the course (ex: fall)
 Output:
 
-All of the previous instances of that course offered in the last two years
-Percent likelihood of the course being offered in the next given semester
+All of the previous instances of that course offered in the last two years and the percent likelihood of the course being offered in the next given semester
 
 ex:
 ```
@@ -32,5 +31,5 @@ ex:
    91011:
    Semester: summer 2018	professor: None	status: CANCELLED
    
-   Likelihood of course being offered next sping: 70 %
+   Likelihood of course being offered next spring: 70 %
 ```
