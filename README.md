@@ -34,4 +34,4 @@ ex:
    Likelihood of course being offered next spring: 70 %
 ```
 
-Note: The percent likelihood is just a fun number to get an idea of whether the class might be offered. It does not have any probabilitistic or statistical merit.
+Disclaimer: The percent likelihood is just a fun number to get an idea of whether the class might be offered. It does not have any probabilitistic or statistical merit.
