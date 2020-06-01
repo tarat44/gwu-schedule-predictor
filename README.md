@@ -1,6 +1,6 @@
 # **GWU Schedule Predictor**
 
-*The purpose of this tool is to allow students at George Washington University to get a better idea of whether a course will be provided in an upcoming semester that the student wishes to take it. Given the subject, course number, and desired semester the script will gather all previous instances of the course for the past semesters that are publicly available on the GW website, and output these instances and an estimation about whether or not the course will be provided in the future semester based on a fixed algorithm that uses the previous data.*
+*The purpose of this tool is to allow students at George Washington University to get a better idea of whether a course will be provided in an upcoming semester that the student wishes to take it. Given the subject, course number, and desired semester the script will gather all previous instances of the course for the past semesters that are publicly available on the GW website, and output these instances and a guess about whether or not the course will be provided in the future semester based on a fixed algorithm that uses the previous data.*
 
 
 
@@ -18,7 +18,7 @@ Provide the python script with the parameters:
     --semester <semester>: semester you are interested in taking the course (ex: fall, spring, summer)
 ### Output:
 
-All of the previous instances of that course offered in the last two years and the percent likelihood of the course being offered in the next given semester
+All of the previous instances of that course offered in the last two years and a guess of whether the course will be offered in the next given semester
 
 ex:
 ```
@@ -43,7 +43,5 @@ ex:
    91011:
    Semester: summer 2018	professor: None	status: CANCELLED
    
-   Likelihood of course being offered next spring: 70 %
+   Likely to be offered next spring: Yes
 ```
-
-**Disclaimer**: The percent likelihood is just a fun number to get an idea of whether the class might be offered. It does not have any probabilitistic or statistical merit.

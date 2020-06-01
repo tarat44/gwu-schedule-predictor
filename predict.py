@@ -14,7 +14,10 @@ class Predictor:
         self.factor_in_enrollment()
         self.factor_in_multiple_professors()
         self.factor_in_semester_offered()
-        self.create_percentage_from_score()
+        if self.likely_to_be_offered():
+            return "Yes"
+        else:
+            return "No"
 
     def factor_in_enrollment(self):
         recent = True
@@ -50,10 +53,8 @@ class Predictor:
             else:
                 self.score = self.score - 4
 
-    def create_percentage_from_score(self):
-        """Generate percentage from score"""
-        self.score = self.score * 10
-        if self.score >= 95:
-            self.score = 95
-        if self.score <= 0:
-            self.score = 5
+    def likely_to_be_offered(self):
+        """Whether the course is likely to be offered in the future semester"""
+        if self.score >= 5:
+            return True
+        return False
