@@ -6,11 +6,11 @@ from predict import Predictor
 def parse_args():
     """Obtain subject and course number arguments from user and parse data"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--subject', type=str, dest='subject',
+    parser.add_argument('--subject', required=True, type=str, dest='subject',
                         help='The abbreviated subject of the course, ex: csci, bisc, chem')
-    parser.add_argument('--coursenum', type=str, dest='coursenum',
+    parser.add_argument('--coursenum', required=True, type=str, dest='coursenum',
                         help='Number of the course, ex: 1011, 1112')
-    parser.add_argument('--semester', type=str, dest='semester',
+    parser.add_argument('--semester', required=True, type=str, dest='semester',
                         help='Semester you would like to take the course, ex: fall, spring')
     args = parser.parse_args()
     return args
