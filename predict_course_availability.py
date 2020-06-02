@@ -30,8 +30,8 @@ def main():
             print(f"{crn}:\nSemester: {instances[crn][0]}\tprofessor: {instances[crn][1]}\tstatus: {instances[crn][2]}\n")
         semester = args.semester
         predictor = Predictor(course_dict[coursenum], terms, semester)
-        predictor.predict()
-        print(f"Likelihood of course being offered next {semester}: {predictor.score} %")
+        result = predictor.predict()
+        print(f"Likely to be offered next {semester}: {result}")
     except KeyError:
         print(f"The course {subject} {coursenum} has not been offered in the last two years")
 

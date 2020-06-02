@@ -49,10 +49,9 @@ def test_factor_in_semester_offered_two_semesters():
     assert predictor.score == -4
 
 
-def test_create_percentage_from_score():
+def test_likely_to_be_offered():
     course_dict = {}
     course_dict["1234"] = Course(title="title", semester="spring 2019", professor="professor", crn="123456", status="OPEN")
     predictor = Predictor(course_dict["1234"], [201903, 201902, 201901, 201803], "summer")
     predictor.score = 3
-    predictor.create_percentage_from_score()
-    assert predictor.score == 30
+    assert not predictor.likely_to_be_offered()
